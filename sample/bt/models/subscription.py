@@ -1,3 +1,4 @@
+import logging
 from typing import Union
 
 import sentry_sdk
@@ -5,8 +6,7 @@ import sentry_sdk
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
-from core.logging import get_logger
-from integrations.braintree.client import get_braintree_gateway
+from ..bt_gateway import get_braintree_gateway
 from .base import PriceModel, QuantityModel, Source
 from .payment_method import CreditCard
 from .plan import (
@@ -18,7 +18,7 @@ from .plan import (
     Plan,
 )
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class SubscriptionStatus:

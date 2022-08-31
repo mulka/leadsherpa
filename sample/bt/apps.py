@@ -6,5 +6,5 @@ class BraintreeConfig(AppConfig):
     name = "bt"
     verbose_name = "Braintree"
 
-    def ready(self):
-        import bt.signals
+    # def ready(self):
+    #     import bt.signals

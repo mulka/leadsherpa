@@ -3,7 +3,7 @@ from datetime import datetime, time
 from django.db import models
 from django.utils.timezone import utc
 
-from core.utils import classproperty
+from django.utils.functional import classproperty
 
 
 class Source:

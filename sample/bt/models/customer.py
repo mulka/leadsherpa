@@ -1,10 +1,11 @@
+import logging
+
 from django.db import models
 
-from core.logging import get_logger
-from integrations.braintree.client import get_braintree_gateway
 from .base import BaseModel, TimestampModel
+from ..bt_gateway import get_braintree_gateway
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class AddressModel(TimestampModel):

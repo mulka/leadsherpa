@@ -1,8 +1,24 @@
 from django.urls import reverse
 from django.utils.html import mark_safe
 
-from core import admin
+from django.contrib import admin
 from . import models
+
+
+class ReadOnlyAdmin(admin.ModelAdmin):
+    readonly_fields = []
+
+    def get_readonly_fields(self, request, obj=None):
+        return list(self.readonly_fields) + \
+               [field.name for field in obj._meta.fields] + \
+               [field.name for field in obj._meta.many_to_many]
+
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class AddressInline(admin.StackedInline):
@@ -22,7 +38,7 @@ class SubscriptionDiscountInline(admin.TabularInline):
 
 
 @admin.register(models.Customer)
-class CustomerAdmin(admin.ReadOnlyAdmin):
+class CustomerAdmin(ReadOnlyAdmin):
     list_display = [
         "email",
         "phone",
@@ -33,7 +49,7 @@ class CustomerAdmin(admin.ReadOnlyAdmin):
 
 
 @admin.register(models.CreditCard)
-class CreditCardAdmin(admin.ReadOnlyAdmin):
+class CreditCardAdmin(ReadOnlyAdmin):
     list_display = [
         "customer",
         "bin",
@@ -46,7 +62,7 @@ class CreditCardAdmin(admin.ReadOnlyAdmin):
 
 
 @admin.register(models.Plan)
-class PlanAdmin(admin.ReadOnlyAdmin):
+class PlanAdmin(ReadOnlyAdmin):
     list_display = [
         "name",
         "price",
@@ -55,7 +71,7 @@ class PlanAdmin(admin.ReadOnlyAdmin):
 
 
 @admin.register(models.Subscription)
-class SubscriptionAdmin(admin.ReadOnlyAdmin):
+class SubscriptionAdmin(ReadOnlyAdmin):
     list_display = [
         "id",
         "payment_method",
