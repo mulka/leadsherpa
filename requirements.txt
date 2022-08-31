@@ -9,9 +9,15 @@ asgiref==3.5.2
 certifi==2022.6.15
     # via sentry-sdk
 django==3.2.15
+    # via
+    #   -r requirements.in
+    #   djangorestframework
+djangorestframework==3.13.1
     # via -r requirements.in
 pytz==2022.2.1
-    # via django
+    # via
+    #   django
+    #   djangorestframework
 sentry-sdk==1.9.5
     # via -r requirements.in
 sqlparse==0.4.2
