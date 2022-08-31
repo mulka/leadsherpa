@@ -57,9 +57,9 @@ class CustomerManager(models.Manager):
         for remote_obj in bt_customers:
             try:
                 customer, _ = self.update_or_create_from_remote_object(remote_obj)
-            except Exception:
+            except Exception:  # TODO: catch more specific exception
                 logger.error(f"Could not sync {self.model} {remote_obj.id}")
-        return customer, _
+        return customer, _  # TODO: why is this returning last customer?
 
     def update_or_create_from_sync(self, customer_id):
         gateway = get_braintree_gateway()
